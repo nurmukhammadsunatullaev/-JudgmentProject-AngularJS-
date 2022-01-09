@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/images/gerb.png"/>
+    <title> E-SUD </title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="css/media.css">
+</head>
+
+<body>
+<div class="wrapper">
+    <header>
+        <div class="left">
+            <a href="/index.html"><img src="/images/gerb.png" height="72"></a>
+            <p align="center">
+                <b th:text="#{application.title.part_1}"></b>
+                <br/>
+                <b th:text="#{application.title.part_2}"></b>
+            </p>
+        </div>
+    </header>
+
+    <section>
+        <div class="section">
+            <p>
+                <img src="/images/flag.png" alt="#"/>
+            </p>
+            <p th:text="#{application.header}"></p>
+        </div>
+    </section>
+
+    <article>
+        <div class="content">
+            <img align="center" style="display: block; margin-left: auto; margin-right: auto; width: 50%" src="/images/error.png" class="img-thumbnail" />
+            <a class="btn btn-default" href="/" role="button">Бош саҳифа</a>
+            <a sec:authorize="!isAnonymous()" class="btn btn-default" href="/upload/home" role="button">Шаҳсий кабинет</a>
+        </div>
+    </article>
+
+    <footer>
+        <div class="left">
+            <p> &copy; Ўзбекистон Республикаси Олий суди </p>
+        </div>
+        <div class="right">
+            <p>
+                <a href="#"> Техник хизмат кўрсатиш: +998 71 241 10 21 &nbsp;</a>
+                <span> "Олий Суд", 2018 </span>
+            </p>
+        </div>
+    </footer>
+</div>
+
+<script src="/js/jquery-3.3.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+</body>
+</html>

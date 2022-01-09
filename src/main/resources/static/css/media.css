@@ -1,0 +1,82 @@
+@media (max-width: 1200px) {
+	div.content table {
+		min-width: 1690px;
+	}
+	section div.section p:last-child {
+		font-size: 18px;
+		line-height: 25px;
+		width: 50%;
+		margin-left: 1em;
+	}
+}
+
+@media (min-width: 1200px) {
+	div.content table{
+		min-width: 1690px;
+	}
+}
+
+@media (max-width: 1000px) {
+	div.form_in > div {
+		width: calc(95% / 3);
+	}
+	footer {
+		flex-wrap: wrap;
+	}
+	div.login {
+		width: 35%;
+	}
+}
+
+@media (max-width: 850px) {
+	div.form_in > div {
+		width: calc(95% / 2);
+	}
+	section div.section p:last-child {
+		width: 70%;
+	}
+	header div.left p {
+		font-size: 16px;
+	}
+}
+
+@media (max-width: 800px) {
+	div.login {
+		width: 40%;
+	}
+}
+
+@media (max-width: 700px) {
+	footer {
+		justify-content: center;
+	}
+	footer div.right {
+		text-align: center;
+	}
+	footer div.right p img {
+		margin-top: 1em;
+	}
+	div.login {
+		width: 50%;
+	}
+}
+
+@media (max-width: 650px) {
+	section div.section p:last-child {
+		font-size: 16px;
+		width: 100%;
+	}
+	header div.left p {
+		font-size: 14px;
+		line-height: 20px;
+	}
+	div.form_in > div {
+		width: calc(95% / 1);
+	}
+}
+
+@media (max-width: 500px) {
+	div.login {
+		width: 80%;
+	}
+}

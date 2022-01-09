@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/images/gerb.png"/>
+    <title> E-SUD </title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="css/media.css">
+</head>
+
+<body ng-app="springDemo">
+<div class="wrapper"  ng-controller="AppCtrl">
+    <header>
+        <div class="left">
+            <a href="/"><img src="/images/gerb.png" height="72"></a>
+            <p align="center"> <b th:text="#{application.title.part_1}"></b> <br/><b th:text="#{application.title.part_2}"></b> </p>
+        </div>
+
+        <div class="right">
+            <a class="btn btn-default" href="/images/instruction.pdf" role="button">Инструкция</a>
+
+            <span>
+                <i class="material-icons">repeat</i>
+            </span>
+
+            <a th:href="#{application.language.url}" th:text="#{application.language.text}"></a>
+
+            <a href="/logout" >
+                <i class="material-icons" style="font-size: 18px!important">exit_to_app</i>
+                <b th:text="#{application.logout}"></b>
+            </a>
+        </div>
+    </header>
+
+    <section>
+        <div class="section">
+            <p><img src="/images/flag.png" alt="#"></p>
+            <p th:text="#{application.header}"></p>
+        </div>
+    </section>
+
+    <article>
+        <main>
+
+            <div class="main_p">
+                <span>
+                    <i class="material-icons mt-0 font-24">find_in_page</i> <b th:text="#{application.search.button}"></b>
+                </span>
+            </div>
+
+            <form>
+                <div class="form">
+                    <p th:text="#{application.search.button}"></p>
+                    <div class="row">
+                        <div class="col-sm-2 pull-left">
+                            <label th:text="#{application.page.size}"></label>
+                            <select ng-model="data_limit" class="form-control">
+                                <option selected>40</option>
+                                <option>60</option>
+                                <option>80</option>
+                                <option>100</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6 pull-right">
+                            <label th:text="#{application.search}"></label>
+                            <input type="text" ng-model="search" ng-change="filter()" th:placeholder="#{application.search}" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+
+        <div class="content">
+
+            <table class="table table-hover">
+                <thead class="thead-dark">
+                <tr class="success">
+                    <th scope="col">№</th>
+                    <th scope="col" th:text="#{application.case.demandantName}"></th>
+                    <th scope="col" th:text="#{application.case.defendantName}"></th>
+                    <th scope="col" th:text="#{application.court.level.title}"></th>
+                    <th scope="col" th:text="#{application.court.name}"></th>
+                    <th scope="col" th:text="#{application.case.number}"></th>
+                    <th scope="col" th:text="#{application.case.type}"></th>
+                    <th scope="col" th:text="#{application.case.judge.name}"></th>
+                    <th scope="col" th:text="#{application.case.date}"></th>
+                    <th scope="col" th:text="#{application.case.result}"></th>
+                    <th scope="col" th:text="#{application.case.document.download}"></th>
+                    <th scope="col" th:text="#{application.case.document.upload}"></th>
+                </tr>
+                </thead>
+                <tbody >
+                <tr  ng-repeat="judgement in searched = (file | filter:search | orderBy : base :reverse) | beginning_data:(current_grid-1)*data_limit | limitTo:data_limit" class="{{judgement.rowColor}}">
+
+                    <td >{{$index +1}}</td>
+                    <td >{{judgement.demandantname}}</td>
+                    <td >{{judgement.defendantname}}</td>
+                    <td >
+                        <span class="bir" th:text="#{application.court.level}"></span>
+                    </td>
+                    <td >{{judgement.courtname}}</td>
+                    <td >{{judgement.caseglobalnumber}}</td>
+                    <td >{{judgement.casetypename}}</td>
+                    <td >{{judgement.judgename}}</td>
+                    <td >{{judgement.judgementsigneddate}}</td>
+                    <td >{{judgement.caseresult}}</td>
+                    <td>
+                        <a href='{{judgement.judgementlinkcode}}'>
+                            <img width="50" height="50" th:src="@{/images/download.png}"/>
+                        </a>
+                    </td>
+                    <td>
+                        <a href='/upload/{{judgement.caseid}}/{{judgement.judgementid}}'>
+                            <img width="50" height="50" th:src="@{/images/upload.png}"/>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12" ng-show="filter_data == 0">
+                <div class="col-md-12">
+                    <h4>No records found..</h4>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6 pull-left">
+                    <h5>Showing {{ searched.length }} of {{ entire_user}} entries</h5>
+                </div>
+                <div class="col-md-6" ng-show="filter_data > 0">
+                    <div pagination="" page="current_grid" on-select-page="page_position(page)" boundary-links="true" total-items="filter_data" items-per-page="data_limit" class="pagination-small pull-right" previous-text="&laquo;" next-text="&raquo;"></div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <footer>
+        <div class="left">
+            <p> &copy; Ўзбекистон Республикаси Олий суди </p>
+        </div>
+        <div class="right">
+            <p>
+                <a href="#"> Техник хизмат кўрсатиш: +998 71 241 10 21 &nbsp;</a>
+                <span> "Олий Суд", 2018 </span>
+            </p>
+        </div>
+    </footer>
+
+</div>
+<script src="/js/angular.min.js"></script>
+<script src="/js/jquery-3.3.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/ui-bootstrap-tpls.min.js"></script>
+<script src="/upload/guest.js"></script>
+</body>
+</html>
