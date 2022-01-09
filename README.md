@@ -1,1 +1,1 @@
-# -JudgmentProject-AngularJS-
+# JudgmentProject-AngularJS
